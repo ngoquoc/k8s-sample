@@ -1,0 +1,30 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: flaskapi 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flaskapi
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: flaskapi
+        tier: backend
+    spec:
+      containers:
+        - name: flaskapi 
+          image: lamk8stest.azurecr.io/flaskapi
+          ports:
+          - containerPort: 5000
+          env:
+          - name: MYSQL_USER
+            value: root
+          - name: MYSQL_PASSWORD
+            value: password
+          - name: MYSQL_HOST
+            value: mysql
+          - name: MYSQL_DB
+            value: test
